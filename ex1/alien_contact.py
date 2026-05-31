@@ -18,7 +18,7 @@ class AlienContact(BaseModel):
     contact_type: ContactType
     signal_strength: float = Field(ge=0.0, le=10.0)
     duration_minutes: int = Field(ge=1, le=1440)
-    witness_count: int = Field(ge=0, le=100)
+    witness_count: int = Field(ge=1, le=100)
     message_received: Optional[str] = Field(default=None, max_length=500)
     is_verified: bool = Field(default=False)
 
@@ -35,10 +35,15 @@ class AlienContact(BaseModel):
             raise ValueError(
                 "Telepathic contact requires at least 3 witnesses"
                 )
+        if self.signal_strength > 7 and not self.message_received:
+            raise ValueError(
+                "Strong signals > 7 should include received message"
+                )
         return self
 
 
 def display_contact(alien: AlienContact) -> None:
+    print("Valid contact report:")
     print(f"ID: {alien.contact_id}")
     print(f"Type: {alien.contact_type.value}")
     print(f"Location: {alien.location}")

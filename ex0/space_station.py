@@ -15,17 +15,14 @@ class SpaceStation(BaseModel):
 
 
 def display_station(station: SpaceStation) -> None:
-    print(f"Station ID: {station.station_id}")
+    print("Valid station created:")
+    print(f"ID: {station.station_id}")
     print(f"Name: {station.name}")
-    print(f"Crew Size: {station.crew_size}")
-    print(f"Power Level: {station.power_level}%")
-    print(f"Oxygen Level: {station.oxygen_level}%")
-    print(f"Last Maintenance:"
-          f" {station.last_maintenance.strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Crew: {station.crew_size} people")
+    print(f"Power: {station.power_level}%")
+    print(f"Oxygen: {station.oxygen_level}%")
     status = "Operational" if station.is_operational else "Not Operational"
     print(f"Operational Status: {status}")
-    if station.notes:
-        print(f"Notes: {station.notes}")
 
 
 def main() -> None:
